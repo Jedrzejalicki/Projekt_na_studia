@@ -263,8 +263,8 @@ int main() {
 
 	load_game(n);
 
-	/*
-	int n = 0, k = 0, g = 0, gv = 0, o = 0;
+	/* 
+	int n = 0, k = 0, g = 0, gv = 0, o = 0; // nie mam pojęcia co oznaczają te nazwy zmiennych - zamiast a,b,c,d,e -  nazywaj zmienne camelCasem, np numberOfPlayers, cardsPerPlayer, roundNumber
 	do {
 		cin >> n;
 	} while (n > 6 || n < 2);
