@@ -21,38 +21,67 @@ Drugi wiersz informuje o liczbie kart = xb, jakie trzyma zakryte przed sobą gra
 Przykład 1 / Example 1
 
 Wejście / Input
+
 active player = 1
+
 players number = 3
+
 1 player hand cards: 4 green 4 green 4 green 1 blue 2 blue 4 blue 5 blue 7 blue 1 red 2 red 5 red 7 red 1 violet 2 violet 4 violet 5 violet 7 violet
+
 1 player deck cards:
+
 2 player hand cards: 4 green 4 green 4 green 1 blue 2 blue 5 blue 7 blue 1 red 2 red 4 red 5 red 7 red 1 violet 2 violet 4 violet 5 violet 7 violet
+
 2 player deck cards:
+
 3 player hand cards: 4 green 4 green 1 blue 2 blue 4 blue 5 blue 7 blue 1 red 2 red 4 red 5 red 7 red 1 violet 2 violet 5 violet 7 violet
+
 3 player deck cards:
 
+
 Wyjście / Output
+
 1 player has 17 cards on hand
+
 1 player has 0 cards in front of him
+
 2 player has 17 cards on hand
+
 2 player has 0 cards in front of him
+
 3 player has 16 cards on hand
+
 3 player has 0 cards in front of him
 
 
 Wejście / Input
+
 active player = 1
+
 players number = 3
+
 1 player hand cards: 4 green 4 green 4 green 1 blue 2 blue 4 blue 5 blue 7 blue 1 red 2 red
+
 1 player deck cards: 5 red 7 red 1 violet 2 violet 4 violet 5 violet 7 violet
+
 2 player hand cards: 4 green 4 green 4 green 1 blue 2 blue 5 blue 7 blue 1 red 2 red 4 red 5 red 7 red 1 violet 2 violet 4 violet
+
 2 player deck cards: 7 violet
+
 3 player hand cards: 4 green 4 green 1 blue 2 blue 4 blue 5 blue 7 blue 1 red 2 red 4 red 5 red 7 red 1 violet 2 violet 5 violet
+
 3 player deck cards: 5 violet 7 violet
+
 
 Wyjście / Output
 1 player has 10 cards on hand
+
 1 player has 7 cards in front of him
+
 2 player has 15 cards on hand
+
 2 player has 1 cards in front of him
+
 3 player has 15 cards on hand
+
 3 player has 2 cards in front of him
