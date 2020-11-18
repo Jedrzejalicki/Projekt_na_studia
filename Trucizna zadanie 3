@@ -1,0 +1,146 @@
+#include <iostream>
+#include <cstdlib>
+#include <conio.h>
+#include <string>
+
+using namespace std;
+
+
+class Card {
+public:
+	int value = 0;
+	string color;
+};
+
+class Hand {
+public:
+	Card cards[200];
+};
+
+class Deck {
+public:
+	Card cards[200];
+};
+
+
+
+
+class Player {
+private:
+	Hand hand; // 6 obiektów hand i deck, bo taka jest maksymalna licba graczy
+	Deck deck;//	a nie wiem jak to wyznaczyć dynamicznie bez wprowadzania nowej wartości
+
+public:
+	int handCardNumber = 0;
+	int deckCardNumber = 0;
+
+	void addCardToHand() {
+		string line;
+		string cardValue;
+		string firstDigit;
+		string secondDigit;
+		getline(cin, line);
+
+		for (int i = 21; i <= line.length(); i++) // counting length of line, but starts analyzing it after "1 player hand cards: "
+		{
+			if (line[i - 1] == ' ' && line[i] != ' ' && line[i + 1] == ' ') {
+				cardValue = line[i];
+				hand.cards[handCardNumber].value = stoi(cardValue); // changing char to int to add it into value
+				handCardNumber++;
+			}
+			else if (line[i - 1] == ' ' && line[i] != ' ' && line[i + 1] != ' ' && line[i + 2] == ' ') {
+				firstDigit = line[i];
+				secondDigit = line[i + 1];
+				cardValue = firstDigit + secondDigit; //adding two strings, then converting to int
+				hand.cards[handCardNumber].value = stoi(cardValue);
+				handCardNumber++;
+			}
+		}
+	}
+
+
+	void addCardToDeck() {
+		string line;
+		string cardValue;
+		string firstDigit;
+		string secondDigit;
+		getline(cin, line);
+
+		for (int i = 21; i <= line.length(); i++) // counting length of line, but starts analyzing it after "1 player hand cards: "
+		{
+			if (line[i - 1] == ' ' && line[i] != ' ' && line[i + 1] == ' ') {
+				cardValue = line[i];
+				deck.cards[deckCardNumber].value = stoi(cardValue); // changing char to int to add it into value
+				deckCardNumber++;
+			}
+			else if (line[i - 1] == ' ' && line[i] != ' ' && line[i + 1] != ' ' && line[i + 2] == ' ') {
+				firstDigit = line[i];
+				secondDigit = line[i + 1];
+				cardValue = firstDigit + secondDigit; //adding two strings, then converting to int
+				deck.cards[deckCardNumber].value = stoi(cardValue);
+				deckCardNumber++;
+			}
+		}
+
+
+	}
+
+
+};
+
+
+
+class Game {
+private:
+	Player* players;
+
+
+public:
+		int numberofPlayers;
+};
+
+
+
+	
+	
+
+
+void mainFunction() {
+	int numberofPlayers = 0;
+	string str_num;
+	string startInput1;
+	string startInput2;
+	
+	getline(cin, startInput1);
+	getline(cin, startInput2);
+	str_num = startInput2[17];
+
+	numberofPlayers = stoi(str_num);
+	Player* players = new Player[numberofPlayers];
+
+
+for (int i = 0; i <= numberofPlayers; i++) {
+			players[i].addCardToHand();
+			players[i].addCardToDeck();
+		}
+
+
+for (int i = 0; i < numberofPlayers; i++) {
+		cout << i+1 << " player has " << players[i].handCardNumber << " cards on hand" << endl;
+		cout << i+1 << " player has " << players[i].deckCardNumber << " cards in front of him"<<endl;
+		}
+
+}
+
+	
+
+		
+
+
+
+	
+
+int main() {
+
+	mainFunction();
+}
