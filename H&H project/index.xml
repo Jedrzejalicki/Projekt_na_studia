@@ -1,0 +1,77 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+    <preferences xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
+	
+	 <author>
+		<name>Jedrzej</name>
+		<surname>Alicki</surname>
+		<group>2</group>
+   </author>
+	
+	<drivers>
+		<driver number="21" podiums="xx" team="Williams"> Gorge Russel</driver>
+		<driver number="20" podiums="xx" team="Williams">Nicholas Latifi</driver>
+		<driver number="xx" podiums="xx" team="Haas">Kevin Magnusen</driver>
+		<driver number="cc" podiums="xx" team="Haas">Romain Grosjean</driver>
+		<driver number="xx" podiums="xx" team="AlfaRomeo">Kimi Raikonen</driver>
+		<driver number="xx" podiums="xx" team="AlfaRomeo">Antonio Govinazzi</driver>
+		<driver number="xx" podiums="xx" team="RacingPoint">Sergio Perez</driver>
+		<driver number="xx" podiums="xx" team="RacingPoint">Lance Stroll</driver>
+		<driver number="xx" podiums="xx" team="AlphaTauri">Piere Gasly</driver>
+		<driver number="xx" podiums="xx" team="AlphaTauri">Danil Kvyat</driver>
+		<driver number="xx" podiums="xx" team="Ferrari">Sebastian Vettel</driver>
+		<driver number="xx" podiums="xx" team="Ferrari">Charles Leclerc</driver>
+		<driver number="xx" podiums="xx" team="Rentaul">Esteban Ocon</driver>
+		<driver number="xx" podiums="xx" team="Rentaul">Daniel Ricardo</driver>
+		<driver number="xx" podiums="xx" team="RedBull">Alex Albon</driver>
+		<driver number="xx" podiums="xx" team="RedBull">Max Verstappen</driver>
+		<driver number="xx" podiums="xx" team="Mclaren">LandoNorris</driver>
+		<driver number="xx" podiums="xx" team="Mclaren">Carlos Sainz</driver>
+		<driver number="xx" podiums="xx" team="Mercedes">Valtteri Bottas</driver>
+		<driver number="xx" podiums="xx" team="Mercedes"> Lewis Hamilton</driver>
+	</drivers>
+
+		<facts kind="informations" current="yes">
+		<text>
+			Formula One (also known as Formula 1 or F1) is the highest class of international single-seater auto racing 
+			sanctioned by the Fédération Internationale de l'Automobile (FIA) and owned by Liberty Media, an American mass media company, 
+			through its wholly owned subsidiary, the Formula One Group. The World Drivers' Championship, which became the FIA Formula One World Championship
+			in 1981, has been one of the premier forms of racing around the world since its inaugural season in 1950. The word "formula" in the name 
+			refers to the set of rules to which all participants' cars must conform. A Formula One season consists of a series of races, known as Grands
+			Prix (French for ''grand prizes' or 'great prizes''), which take place worldwide on purpose-built circuits and on closed public roads.
+		</text>
+		</facts>
+	
+		<facts kind="rules" current="yes">
+			<rule>The “One Move” Defending Rule</rule>
+			<rule>Drivers Must Qualify Within 107% Of The Pole-Sitter</rule>
+			<rule>If an engine part is changed, they take a grid drop penalty</rule>
+			<rule>Speeding In The Pitlane? You Get A Penalty</rule>
+			<rule>They Must Change Tyre Compounds In The Race</rule>
+			<rule>Safety Car Line Overtaking</rule>
+			<rule>Rain Lights MUST Be Used In The Wet</rule>
+		</facts>
+		
+		<facts kind="car" current="yes">
+		<text>
+			A Formula One car is a single-seat, open cockpit, open-wheel racing car with substantial front and rear wings,
+			and an engine positioned behind the driver, intended to be used in competition at Formula One racing events. 
+			The regulations governing the cars are unique to the championship and specify that cars must be constructed by the racing teams themselves,
+			though the design and manufacture can be outsourced.
+			Modern-day Formula One cars are constructed from composites of carbon fibre and similar ultra-lightweight materials.
+			The minimum weight permissible is 740 kg (1,631 lb) including the driver but not fuel. Cars are weighed with dry-weather tyres fitted. 
+			Prior to the 2014 F1 season, cars often weighed in under this limit so teams added ballast in order to add weight to the car.
+			The advantage of using ballast is that it can be placed anywhere in the car to provide ideal weight distribution.
+			This can help lower the car's centre of gravity to improve stability and also allows the team to fine-tune the weight distribution 
+			of the car to suit individual circuits. 
+			</text>
+		</facts>
+		
+		
+		
+	
+	
+	
+	
+	
+		
