@@ -1,0 +1,144 @@
+#include <iostream>
+#include <cstdlib>
+#include <cstdio>
+#include <stdio.h>
+#include <string.h>
+
+
+using namespace std;
+
+
+class Card {
+public:
+	int value = 0;
+	char color[10] = {};
+};
+
+class Hand {
+public:
+	Card cards[200];
+};
+
+class Deck {
+public:
+	Card cards[200];
+};
+
+
+
+
+class Player {
+private:
+	Hand hand; // 6 obiektów hand i deck, bo taka jest maksymalna licba graczy
+	Deck deck;//	a nie wiem jak to wyznaczyć dynamicznie bez wprowadzania nowej wartości
+
+public:
+	int handCardNumber = 0;
+	int deckCardNumber = 0;
+
+	void addCardToHand() {
+		char line[300];
+		int cardValue;
+		char converter[2];
+		gets_s(line);
+
+		for (int i = 21; i < 301; i++) // counting length of line, but starts analyzing it after "1 player hand cards: "
+		{
+			if (line[i - 1] == ' ' && line[i] != ' ' && line[i + 1] == ' ') {
+				cardValue = (int)line[i] - 48;
+				hand.cards[handCardNumber].value = cardValue; // changing char to int to add it into value
+				handCardNumber++;
+			}
+			else if (line[i - 1] == ' ' && line[i] != ' ' && line[i + 1] != ' ' && line[i + 2] == ' ') {
+				converter[0] = line[i];
+				converter[1] = line[i + 1];//adding two strings, then converting to int
+				cardValue = atoi(converter);
+				hand.cards[handCardNumber].value = cardValue;
+				handCardNumber++;
+			}
+		}
+	}
+
+
+	void addCardToDeck() {
+		char line[300];
+		char cardValue;
+		char converter[2];
+		gets_s(line);
+
+		for (int i = 21; i < 300; i++) // counting length of line, but starts analyzing it after "1 player hand cards: "
+		{
+
+			if (line[i - 1] == ' ' && line[i] != ' ' && line[i + 1] == ' ') {
+				cardValue = (int)line[i] - 48;
+				deck.cards[deckCardNumber].value = cardValue; // changing char to int to add it into value
+				deckCardNumber++;
+			}
+			else if (line[i - 1] == ' ' && line[i] != ' ' && line[i + 1] != ' ' && line[i + 2] == ' ') {
+				converter[0] = line[i];
+				converter[1] = line[i + 1];
+				cardValue = atoi(converter); //adding two strings, then converting to int
+				deck.cards[deckCardNumber].value = cardValue;
+				deckCardNumber++;
+			}
+
+		}
+
+
+	}
+};
+
+
+
+
+
+int charToInt(char inputNumber) {
+	int outputNumber;
+
+	outputNumber = (int)inputNumber - 48;
+	return outputNumber;
+}
+
+
+
+void mainFunction() {
+	int numberofPlayers = 0;
+	char str_num;
+	char startInput1[20];
+	char startInput2[20];
+
+
+
+	gets_s(startInput1);
+	gets_s(startInput2);
+	str_num = startInput2[17];
+
+	numberofPlayers = charToInt(str_num);
+	Player* players = new Player[numberofPlayers];
+
+	for (int i = 0; i < numberofPlayers; i++) {
+		players[i].addCardToHand();
+		players[i].addCardToDeck();
+	}
+
+
+	for (int i = 0; i < numberofPlayers; i++) {
+		cout << i + 1 << " player has " << players[i].handCardNumber << " cards on hand" << endl;
+		cout << i + 1 << " player has " << players[i].deckCardNumber << " cards in front of him" << endl;
+	}
+
+	delete[] players;
+}
+
+
+
+
+
+
+
+
+
+int main() {
+
+	mainFunction();
+}
