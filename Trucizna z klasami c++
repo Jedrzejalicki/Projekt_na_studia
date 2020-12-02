@@ -1,0 +1,67 @@
+#include <iostream>
+#include <cstdlib>
+#include <conio.h>
+#include <string>
+
+using namespace std;
+
+class Card {
+public:
+	int value;
+	string color;
+};
+
+class Hand {
+public:
+	Card cards[100];
+};
+
+class Deck {
+public:
+	Card cards[100];
+};
+
+class Player {
+	public:
+		Hand hand[50];
+		Deck deck[50];
+		int deckCardNumber = 0;
+		int handCardNumber = 0;
+		/*
+		void addCardToHand() {
+			cin >> hand[0].cards[0].value >> hand[0].cards[0].color;
+		}
+		*/
+		
+		void addCardToDeck() {
+			cin >> deck[0].cards[0].value >> deck[0].cards[0].color;
+		}
+
+   
+};
+
+int main() {
+	int numbersOfPlayers;
+	cout << "active player = 1" << endl;
+	cout << "players number = ";
+	cin >> numbersOfPlayers;
+
+	Player* players = new Player[numbersOfPlayers];
+
+	for (int i = 1; i <= numbersOfPlayers; i++) {
+		//	cout << i << " player hand cards: ";
+			//players[i].addCardToHand();
+		cout << endl;
+		cout << i << " player deck cards: ";
+		players[i].addCardToDeck();
+		cout << endl;
+	}
+
+		for (int i = 1; i <= numbersOfPlayers; i++) {
+			cout << players[i].deck->cards->value << players[i].deck->cards->value;
+
+
+	}
+
+	//delete players;
+}
