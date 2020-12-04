@@ -1,0 +1,557 @@
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#define CARDS_MAX (200)
+#define LINE_MAX (300)
+#define GREEN_MAX (20)
+#define CARDS_VALUE (21)
+#define COLOR_MAX (6)
+int activePlayer;
+using namespace std;
+
+
+
+
+class Card {
+public:
+	int value = 0;
+	char color[10] = {};
+};
+
+
+char* readLine() {
+	char line[LINE_MAX];
+	cin.getline(line, 300);
+	return line;
+}
+
+int setStartNumber(char* line) {
+	int startNumber;
+
+	for (int x = 0; x < 50; x++) {
+		if (line[x] == ':') {
+			startNumber = x;
+		}
+	}
+	return startNumber;
+
+}
+
+
+
+	void addCards(char* line, int cardNumber, Card * cards,int startNumber) {
+		int converter[2];
+		int cardValue;
+
+
+		for (int i = startNumber; line[i] != '\0'; i++)
+		{
+			if (line[i - 1] == ' ' && line[i] != ' ' && line[i + 1] == ' ') {
+				cardValue = (int)line[i] - 48;
+				cards[cardNumber].value = cardValue;
+				cardNumber++;
+			}
+			else if (line[i - 1] == ' ' && line[i] != ' ' && line[i + 1] != ' ' && line[i + 2] == ' ') {
+				converter[0] = (int)line[i] - 48;
+				converter[1] = (int)line[i + 1] - 48;
+				cardValue = 10 * converter[0] + converter[1];
+				cards[cardNumber].value = cardValue;
+				cardNumber++;
+			}
+		}
+	}
+
+
+
+
+
+class Hand {
+public:
+	Card cards[CARDS_MAX];
+};
+
+class Deck {
+public:
+	Card cards[CARDS_MAX];
+};
+
+
+
+
+class Player {
+public:
+	Hand hand;
+	Deck deck;
+
+
+	int handCardNumber = 0;
+	int handColorNumber = 0;
+	int deckCardNumber = 0;
+	int deckColorNumber = 0;
+
+	int numberOfColors[COLOR_MAX] = { 0, 0, 0, 0, 0, 0 };
+	int numberOfGreens = 0, numberOfBlues = 0, numberOfReds = 0, numberOfViolets = 0, numberOfYellows = 0, numberOfWhites = 0, numberOfBlacks = 0;
+	int valueOfBlues[CARDS_VALUE] = {}, valueOfReds[CARDS_VALUE] = {}, valueOfViolets[CARDS_VALUE] = {}, valueOfYellows[CARDS_VALUE] = {}, valueOfWhites[CARDS_VALUE] = {}, valueOfBlacks[CARDS_VALUE] = {};
+
+
+
+	void addCardToHand() {
+
+		char* line = readLine();
+		int startNumber = setStartNumber(line);
+		addCards(line, handCardNumber, hand.cards, startNumber);
+
+		checkHandColors(startNumber, line);
+
+	}
+
+	void checkHandColors(int startNumber, char* line) {
+		for (int i = startNumber; line[i] != '\0'; i++)
+		{
+			if (line[i] == 'g') {
+				strcpy_s(hand.cards[handColorNumber].color, "green");
+				numberOfGreens++;
+				handColorNumber++;
+			}
+
+			else if (line[i] == 'b' && line[i + 2] == 'u') {
+				strcpy_s(hand.cards[handColorNumber].color, "blue");
+				numberOfColors[0] = 1;
+				valueOfBlues[numberOfBlues] = hand.cards[handColorNumber].value;
+				numberOfBlues++;
+				handColorNumber++;
+			}
+			else if (line[i] == 'r' && line[i + 2] == 'd') {
+				strcpy_s(hand.cards[handColorNumber].color, "red");
+				numberOfColors[1] = 1;
+				valueOfReds[numberOfReds] = hand.cards[handColorNumber].value;
+				numberOfReds++;
+				handColorNumber++;
+			}
+			else if (line[i] == 'v') {
+				strcpy_s(hand.cards[handColorNumber].color, "violet");
+				numberOfColors[2] = 1;
+				valueOfViolets[numberOfViolets] = hand.cards[handColorNumber].value;
+				numberOfViolets++;
+				handColorNumber++;
+			}
+			else if (line[i] == 'y') {
+				strcpy_s(hand.cards[handColorNumber].color, "yellow");
+				numberOfColors[3] = 1;
+				valueOfYellows[numberOfYellows] = hand.cards[handColorNumber].value;
+				numberOfYellows++;
+				handColorNumber++;
+			}
+			else if (line[i] == 'w' && line[i + 1] == 'h') {
+				strcpy_s(hand.cards[handColorNumber].color, "white");
+				numberOfColors[4] = 1;
+				valueOfWhites[numberOfWhites] = hand.cards[handColorNumber].value;
+				numberOfWhites++;
+				handColorNumber++;
+			}
+			else if (line[i] == 'b' && line[i + 2] == 'a') {
+				strcpy_s(hand.cards[handColorNumber].color, "black");
+				valueOfBlacks[numberOfBlacks] = hand.cards[handColorNumber].value;
+				numberOfColors[5] = 1;
+				numberOfBlacks++;
+				handColorNumber++;
+			}
+		}
+	}
+
+
+	void addCardToDeck() {
+		char* line = readLine();
+		int startNumber = setStartNumber(line);
+
+
+		addCards(line, deckCardNumber, deck.cards, startNumber);
+
+
+		checkDeckColors(startNumber, line);
+
+	}
+
+
+	void checkDeckColors(int startNumber, char* line) {
+		for (int i = startNumber; line[i] != '\0'; i++)
+		{
+			if (line[i] == 'g') {
+				strcpy_s(deck.cards[deckColorNumber].color, "green");
+				deckColorNumber++;
+				numberOfGreens++;
+			}
+			else if (line[i] == 'b' && line[i + 2] == 'u') {
+				strcpy_s(deck.cards[deckColorNumber].color, "blue");
+				numberOfColors[0] = 1;
+				valueOfBlues[numberOfBlues] = deck.cards[deckColorNumber].value;
+				numberOfBlues++;
+				deckColorNumber++;
+
+			}
+			else if (line[i] == 'r' && line[i + 2] == 'd') {
+				strcpy_s(deck.cards[deckColorNumber].color, "red");
+				numberOfColors[1] = 1;
+				valueOfReds[numberOfReds] = deck.cards[deckColorNumber].value;
+				numberOfReds++;
+				deckColorNumber++;
+			}
+			else if (line[i] == 'v') {
+				strcpy_s(deck.cards[deckColorNumber].color, "violet");
+				numberOfColors[2] = 1;
+				valueOfViolets[numberOfViolets] = deck.cards[deckColorNumber].value;
+				numberOfViolets++;
+				deckColorNumber++;
+			}
+			else if (line[i] == 'y') {
+				strcpy_s(deck.cards[deckColorNumber].color, "yellow");
+				numberOfColors[3] = 1;
+				valueOfYellows[numberOfYellows] = deck.cards[deckColorNumber].value;
+				numberOfYellows++;
+				deckColorNumber++;
+			}
+			else if (line[i] == 'w' && line[i + 1] == 'h') {
+				strcpy_s(deck.cards[deckColorNumber].color, "white");
+				numberOfColors[4] = 1;
+				valueOfWhites[numberOfWhites] = deck.cards[deckColorNumber].value;
+				numberOfWhites++;
+				deckColorNumber++;
+			}
+			else if (line[i] == 'b' && line[i + 2] == 'a') {
+				strcpy_s(deck.cards[deckColorNumber].color, "black");
+				numberOfColors[5] = 1;
+				valueOfBlacks[numberOfBlacks] = deck.cards[deckColorNumber].value;
+				numberOfBlacks++;
+				deckColorNumber++;
+			}
+		}
+	}
+};
+
+
+	class Pile {
+	public:
+		Card cards[200];
+		int explosionNumber = 0;
+		int pileCardNumber = 0;
+		int pileColorNumber = 0;
+		int numberOfGreens = 0;
+
+		int numberOfColors[COLOR_MAX] = { 0, 0, 0, 0, 0, 0 };
+		int valueOfBlues[CARDS_VALUE] = {}, valueOfReds[CARDS_VALUE] = {}, valueOfViolets[CARDS_VALUE] = {}, valueOfYellows[CARDS_VALUE] = {}, valueOfWhites[CARDS_VALUE] = {}, valueOfBlacks[CARDS_VALUE] = {};
+
+
+		void addCardsToPile() {
+			char* line = readLine();
+			int startNumber = setStartNumber(line);
+
+			addCards(line, pileCardNumber, cards, startNumber);
+			checkColors(line, startNumber);
+
+		}
+
+		void checkColors(char* line, int startNumber) {
+			for (int i = startNumber; line[i] != '\0'; i++)
+			{
+				if (line[i] == 'g') {
+					strcpy_s(cards[pileColorNumber].color, "green");
+					numberOfGreens++;
+					pileColorNumber++;
+				}
+				else if (line[i] == 'b' && line[i + 2] == 'u') {
+					strcpy_s(cards[pileColorNumber].color, "blue");
+					valueOfBlues[numberOfColors[0]] = cards[pileColorNumber].value;
+					numberOfColors[0]++;
+					pileColorNumber++;
+
+				}
+				else if (line[i] == 'r' && line[i + 2] == 'd') {
+					strcpy_s(cards[pileColorNumber].color, "red");
+					valueOfReds[numberOfColors[1]] = cards[pileColorNumber].value;
+					numberOfColors[1]++;
+					pileColorNumber++;
+				}
+				else if (line[i] == 'v') {
+					strcpy_s(cards[pileColorNumber].color, "violet");
+					valueOfViolets[numberOfColors[2]] = cards[pileColorNumber].value;
+					numberOfColors[2]++;
+					pileColorNumber++;
+				}
+				else if (line[i] == 'y') {
+					strcpy_s(cards[pileColorNumber].color, "yellow");
+					valueOfYellows[numberOfColors[3]] = cards[pileColorNumber].value;
+					numberOfColors[3]++;
+					pileColorNumber++;
+				}
+				else if (line[i] == 'w' && line[i + 1] == 'h') {
+					strcpy_s(cards[pileColorNumber].color, "white");
+					valueOfWhites[numberOfColors[4]] = cards[pileColorNumber].value;
+					numberOfColors[4]++;
+					pileColorNumber++;
+				}
+				else if (line[i] == 'b' && line[i + 2] == 'a') {
+					strcpy_s(cards[pileColorNumber].color, "black");
+					valueOfBlacks[numberOfColors[5]] = cards[pileColorNumber].value;
+					numberOfColors[5]++;
+					pileColorNumber++;
+				}
+			}
+		}
+	};
+
+	int* checkExplosion(Pile* piles, int numberOfPiles) {
+		int* sum = new int[numberOfPiles];
+		for (int i = 0; i < numberOfPiles; i++)
+			sum[i] = 0;
+
+		for (int i = 0; i < numberOfPiles; i++)
+			for (int j = 0; j < piles[i].pileCardNumber; j++)
+				sum[i] += piles[i].cards[j].value;
+
+
+		return sum;
+	}
+
+	void explosion(Player* players, Pile* piles, int* sum, int numberOfPiles) {
+		int playerIndex = players[activePlayer].deckCardNumber;
+
+		for (int i = 0; i < numberOfPiles; i++) {
+			if (sum[i] > piles[i].explosionNumber) {
+				for (int j = 0; j < piles[i].pileCardNumber; j++) {
+					players[activePlayer].deck.cards[playerIndex] = piles[i].cards[j];
+					playerIndex++;
+					players[activePlayer].deckCardNumber += piles[i].pileCardNumber;
+					piles[i].pileCardNumber = 0;
+					piles[i].cards[j].value = 0;
+					piles[i].cards[j].color[0] = '\0';
+
+				}
+			}
+		}
+		cout << playerIndex;
+	}
+
+	void giveCardsToPlayers(Player* players, int numberofPlayers) {
+		for (int i = 0; i < numberofPlayers; i++) {
+			players[i].addCardToHand();
+			players[i].addCardToDeck();
+		}
+
+	}
+
+
+
+
+	void giveCardsToPiles(Pile* piles, int numberOfPiles) {
+		for (int i = 0; i < numberOfPiles; i++) {
+			piles[i].addCardsToPile();
+		}
+	}
+
+
+
+	/*int checkCardOnHand(Player* players, int numberOfPlayers) {
+		int check = 1;
+		for (int i = 0; i < numberOfPlayers; i++) {
+			for (int j = i - 1; j >= 0; j--) {
+				if (players[i].handCardNumber - players[j].handCardNumber > 1 || players[i].handCardNumber - players[j].handCardNumber < -1)
+					check = 0;
+				else
+					check = 1;
+			}
+		}
+
+		return check;
+	}
+	*/
+
+	/*int* checkPilesColor(Pile* piles, int numberOfPiles) {
+		int* number = new int[COLOR_MAX];
+		int colorCheck[COLOR_MAX][COLOR_MAX];
+
+		for (int i = 0; i < COLOR_MAX; i++)
+			number[i] = 0;
+
+		for (int i = 0; i < numberOfPiles; i++) {
+			for (int x = 0; x < COLOR_MAX; x++) {
+				if (piles[0].numberOfColors[x] > 0)
+					colorCheck[0][x] = 1;
+				else
+					colorCheck[0][x] = 0;
+				if (piles[1].numberOfColors[x] > 0)
+					colorCheck[1][x] = 1;
+				else
+					colorCheck[1][x] = 0;
+				if (piles[2].numberOfColors[x] > 0)
+					colorCheck[2][x] = 1;
+				else
+					colorCheck[2][x] = 0;
+				if (piles[3].numberOfColors[x] > 0)
+					colorCheck[3][x] = 1;
+				else
+					colorCheck[3][x] = 0;
+				if (piles[4].numberOfColors[x] > 0)
+					colorCheck[4][x] = 1;
+				else
+					colorCheck[4][x] = 0;
+				if (piles[5].numberOfColors[x] > 0)
+					colorCheck[5][x] = 1;
+				else
+					colorCheck[5][x] = 0;
+			}
+		}
+
+
+
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 6; j++) {
+				if (colorCheck[i][j] == 1)
+					number[i]++;
+			}
+		}
+
+		return number;
+	}
+	*/
+	void makeMove(Player* players, Pile* piles, int numberOfPlayers, int numberOfPiles) {
+
+		if (strcmp(players[activePlayer].hand.cards[0].color, "green") == 0) {								//sprawdzay czy karta nie jest zielona wtedy dokładamy na pierwszy stos					
+			piles[0].cards[piles[0].pileCardNumber] = players[activePlayer].hand.cards[0];	// dodajemy kartę następną po ostatniej
+			piles[0].pileCardNumber++;													//zwiększamy liczbę kart na stosie 
+		}
+		else {
+			for (int i = 0; i < numberOfPiles; i++) {
+				for (int j = 0; j < piles[i].pileCardNumber; j++) {
+					if (strcmp(players[activePlayer].hand.cards[0].color, piles[i].cards[j].color) == 0) { //porównojemy pierwszą karte z ręki
+						piles[i].cards[piles[i].pileCardNumber] = players[activePlayer].hand.cards[0];	//z każdą kartą na stosie i dodajmemy jeśli kolory są takie same 
+						piles[i].pileCardNumber++;
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	void moveHandCards(Player* players, int numberOfPlayers) {
+		for (int i = 0; i < players[activePlayer].handCardNumber - 1; i++) {
+			players[activePlayer].hand.cards[i] = players[activePlayer].hand.cards[i + 1];
+		}
+		players[activePlayer].handCardNumber--;
+	}
+
+
+	void print(Player* players, int numberOfPlayers, Pile* piles, int numberOfPiles) {
+		if (activePlayer == numberOfPlayers - 1) // pomniejszyłem wcześniej activePlayer o 1;
+			activePlayer = 1;
+		else
+			activePlayer += 2; //+2, bo pomniejszyłem wcześniej o jedenz aby pasowało do tablicy
+
+
+		cout << "active player = " << activePlayer << endl;;
+		cout << "players number = " << numberOfPlayers << endl;
+		cout << "explosion threshold = " << piles[0].explosionNumber << endl;
+		for (int i = 0; i < numberOfPlayers; i++) {
+			cout << i + 1 << " player hand cards: ";
+			for (int j = 0; j < players[i].handCardNumber; j++) {
+				cout << players[i].hand.cards[j].value << " " << players[i].hand.cards[j].color << " ";
+			}
+			cout << endl;
+			cout << i + 1 << " player deck cards: ";
+			for (int x = 0; x < players[i].deckCardNumber; x++) {
+
+				cout << players[i].deck.cards[x].value << " " << players[i].deck.cards[x].color << " ";
+
+			}
+			cout << endl;
+		}
+		for (int i = 0; i < numberOfPiles; i++) {
+			cout << i + 1 << " pile cards: ";
+			for (int j = 0; j < piles[i].pileCardNumber; j++) {
+				cout << piles[i].cards[j].value << " " << piles[i].cards[j].color << " ";
+			}
+			cout << endl;
+		}
+
+	}
+
+
+
+	int setNumberOfPiles(Player* players, int numberOfPlayers) {
+		int numberOfPiles = 0;
+		int colors[6] = { 0,0,0,0,0,0 };
+
+		for (int i = 0; i < numberOfPlayers; i++) {
+			if (players[i].numberOfBlues > 0)
+				colors[0] = 1;
+			if (players[i].numberOfReds > 0)
+				colors[1] = 1;
+			if (players[i].numberOfViolets > 0)
+				colors[2] = 1;
+			if (players[i].numberOfYellows > 0)
+				colors[3] = 1;
+			if (players[i].numberOfWhites > 0)
+				colors[4] = 1;
+			if (players[i].numberOfBlacks > 0)
+				colors[5] = 1;
+		}
+
+		for (int i = 0; i < COLOR_MAX; i++)
+			numberOfPiles += colors[i];
+
+		return numberOfPiles;
+	}
+
+	void mainFunction() {
+		int numberOfPlayers = 0;
+		char str_num;
+		int expolsionNumber;
+		char converter[2];
+		char startInput1[20];
+		char startInput2[20];
+		char startInput3[30];
+		int numberOfPiles = 0;
+
+
+		cin.getline(startInput1, 20);
+		cin.getline(startInput2, 20);
+		cin.getline(startInput3, 30);
+
+		converter[0] = (int)startInput3[22] - 48;
+		converter[1] = (int)startInput3[23] - 48;
+
+		activePlayer = ((int)startInput1[16] - 48) - 1; // liczymy od 0
+		str_num = startInput2[17];
+		expolsionNumber = 10 * converter[0] + converter[1];
+
+		numberOfPlayers = (int)str_num - 48;
+		Player* players = new Player[numberOfPlayers];
+
+
+		giveCardsToPlayers(players, numberOfPlayers);
+
+		numberOfPiles = setNumberOfPiles(players, numberOfPlayers);
+		Pile* piles = new Pile[numberOfPiles];
+
+		for (int i = 0; i < numberOfPiles; i++)
+			piles[i].explosionNumber = expolsionNumber;
+
+		giveCardsToPiles(piles, numberOfPiles);
+
+		makeMove(players, piles, numberOfPlayers, numberOfPiles);
+		moveHandCards(players, numberOfPlayers);
+		explosion(players, piles, checkExplosion(piles, numberOfPiles), numberOfPiles);
+
+		print(players, numberOfPlayers, piles, numberOfPiles);
+
+		delete[] players;
+		delete[] piles;
+	}
+
+
+
+	int main() {
+
+		mainFunction();
+	}
+
